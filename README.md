@@ -2,12 +2,6 @@
 
 Code for a refined replication of Dijkstra et al., 2022. Heavily based on [imadet-experiment-3-refined][1].
 
-## TODO
-
-- Port main part (no threshold anymore, update initial instruction, ...)
-- Final questionnaire
-- Test run
-
 ## Changes that have been made
 
 ### Stimuli

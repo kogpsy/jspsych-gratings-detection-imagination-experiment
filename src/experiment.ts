@@ -57,6 +57,7 @@ import { getPraciceDetectionTimeline } from './practiceDetectionTimeline';
 import { getPracticeImaginationTimeline } from './practiceImaginationTimeline';
 import { getMainExperimentTimeline } from './mainExperimentTimeline';
 import SurveyHtmlFormPlugin from '@jspsych/plugin-survey-html-form';
+import FullscreenPlugin from '@jspsych/plugin-fullscreen';
 import { generateVviqTimeline } from '@kogpsy/jspsych-vviq';
 
 /**
@@ -105,8 +106,15 @@ export async function run({ assetPaths, input = {}, environment }) {
     images: [...backgroundNoiseFrames, [...assetPaths.images]],
   });
 
+  timeline.push({
+    type: FullscreenPlugin,
+    message:
+      '<p>Das Experiment wechselt in den Vollbildmodus, wenn Sie den Button drücken.</p>',
+    button_label: 'OK',
+  });
+
   // First trial presenting participant id and informing about rights
-  /* timeline.push({
+  timeline.push({
     type: SurveyHtmlFormPlugin,
     html: `<h3>Willkommen</h3>
     <p>
@@ -152,10 +160,10 @@ export async function run({ assetPaths, input = {}, environment }) {
     <div class="vertical_spacer"></div>
     `,
     button_label: 'Weiter',
-  }); */
+  });
 
   // First trial capturing demographics
-  /* timeline.push({
+  timeline.push({
     type: SurveyHtmlFormPlugin,
     html: `<p>
     Bevor wir mit dem eigentlichen Experiment starten, haben wir noch ein paar
@@ -203,16 +211,13 @@ export async function run({ assetPaths, input = {}, environment }) {
     <div class="vertical_spacer"></div>
   </p>`,
     button_label: 'Weiter',
-    data: {
-      test_part: 'survey_demographics',
-    },
     on_finish: (data: any) => {
       jsPsych.data.addProperties(data.response);
     },
-  }); */
+  });
 
   // Add note on VVIQ and VVIQ itself
-  /* timeline.push({
+  timeline.push({
     type: HtmlKeyboardResponsePlugin,
     stimulus: `<p>
   Zunächst werden Ihnen einige Fragen zu Ihrer Vorstellungskraft gestellt. Es
@@ -222,10 +227,10 @@ export async function run({ assetPaths, input = {}, environment }) {
 `,
     choices: [' '],
   });
-  timeline.push(generateVviqTimeline('german')); */
+  timeline.push(generateVviqTimeline('german', { test_part: 'vviq' }));
 
   // Push the main explanation of the experiment to the timeline
-  /* timeline.push({
+  timeline.push({
     type: HtmlKeyboardResponsePlugin,
     stimulus: `<p>
   Wir werden jetzt zum eigentlichen Teil übergehen. Sie werden im folgenden nach
@@ -250,7 +255,7 @@ export async function run({ assetPaths, input = {}, environment }) {
 <p>Drücken Sie die [Leertaste], um fortzufahren.</p>
 `,
     choices: [' '],
-  }); */
+  });
 
   // Add practice trials
   timeline.push(
@@ -263,13 +268,13 @@ export async function run({ assetPaths, input = {}, environment }) {
   );
 
   // Add imagination practice sub-timeline
-  /* timeline.push(
+  timeline.push(
     getPracticeImaginationTimeline(
       jsPsych,
       fixationCrossTrial,
       backgroundNoiseFrames
     )
-  ); */
+  );
 
   // Add main experiment sub-timeline
   timeline.push(
@@ -313,6 +318,11 @@ export async function run({ assetPaths, input = {}, environment }) {
       <input type="radio" id="option_influence_feeling_no" name="did_participant_feel_influence_of_imagination" value="no" required>
       <label for="option_influence_feeling_no">Nein</label>
     </div>
+    <div>
+      <div class="vertical_spacer"></div>
+      <div>Inwiefern?</div>
+      <textarea name="did_participant_feel_influence_of_imagination_explanation"></textarea>
+    </div>
   </fieldset>
 </p>
 <p>Klicken Sie auf weiter, um Ihre Daten einzureichen.</p> `,
@@ -330,6 +340,29 @@ export async function run({ assetPaths, input = {}, environment }) {
 
   // Get the resulting data
   const resultData = jsPsych.data.get();
+
+  // Do some cleanup
+  const cleanData = resultData
+    .filterCustom((trial) => {
+      return trial.test_part !== undefined;
+    })
+    .filterColumns([
+      'participant_id',
+      'gender',
+      'age',
+      'handedness',
+      'response',
+      'correct',
+      'correct_response',
+      'visibility',
+      'stimulus',
+      'rt',
+      'test_part',
+      'did_participant_really_imagine',
+      'did_participant_feel_influence_of_imagination',
+      'did_participant_feel_influence_of_imagination_explanation',
+    ]);
+
   // If the experiment is run by JATOS, pass the resulting data to the server
   // in CSV form.
   if (environment === 'jatos') {
@@ -337,16 +370,16 @@ export async function run({ assetPaths, input = {}, environment }) {
     // object is not created here but injected at runtime. This is why for the
     // following line, TypeScript errors are ignored.
     // @ts-ignore
-    jatos.submitResultData(resultData.json(), jatos.startNextComponent);
+    jatos.submitResultData(cleanData.json(), jatos.startNextComponent);
   }
   // In every other environment, print the data to the browser console in JSON
   // form. Here you can adjust what should happen to the data if the experiment
   // is served, e.g. by a common httpd server.
   else {
     // Trigger browser download
-    resultData.localSave('json', 'data.json');
+    cleanData.localSave('json', 'data.json');
     // And log to console
     console.log('End of experiment. Results:');
-    console.log(resultData);
+    console.log(cleanData);
   }
 }

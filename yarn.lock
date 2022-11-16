@@ -378,14 +378,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@kogpsy/jspsych-vviq@npm:^2.0.5":
-  version: 2.0.5
-  resolution: "@kogpsy/jspsych-vviq@npm:2.0.5"
+"@kogpsy/jspsych-vviq@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "@kogpsy/jspsych-vviq@npm:3.0.0"
   peerDependencies:
     "@jspsych/plugin-html-keyboard-response": ^1.1.0
     "@jspsych/plugin-survey-likert": ^1.1.0
     jspsych: ^7.1.2
-  checksum: af8fe3e32373309beb9c4b0d4cc1626ff04bcdc85ef8d0df830fb79b5b490a7f00a29215827ef362d20dbb6d9ecdc871a8ad6c9c6c3c65a637eee37a2c9a2075
+  checksum: 26702ec67680238c0cf33405854bc3a21ba9e281d76dc6dba97a39fdcea4f1bfc554d0efb9937ba9fd44aff36cb81ac4137c15ff4c2f615baafb8c530f318c8e
   languageName: node
   linkType: hard
 
@@ -3504,7 +3504,7 @@ __metadata:
     "@jspsych/plugin-survey-html-form": ^1.0.2
     "@jspsych/plugin-survey-likert": ^1.1.2
     "@kogpsy/jspsych-gabor-stimulus-plugin": ^0.9.4
-    "@kogpsy/jspsych-vviq": ^2.0.5
+    "@kogpsy/jspsych-vviq": ^3.0.0
     jspsych: ^7.3.0
     jspsych-builder: ^4.3.1
     prettier: 2.7.1

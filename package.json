@@ -16,7 +16,7 @@
     "@jspsych/plugin-survey-html-form": "^1.0.2",
     "@jspsych/plugin-survey-likert": "^1.1.2",
     "@kogpsy/jspsych-gabor-stimulus-plugin": "^0.9.4",
-    "@kogpsy/jspsych-vviq": "^2.0.5",
+    "@kogpsy/jspsych-vviq": "^3.0.0",
     "jspsych": "^7.3.0"
   },
   "devDependencies": {

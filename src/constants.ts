@@ -16,7 +16,7 @@
 // Define whether to build for development or production (influences block size,
 // number of generated noise frames, ...)
 // Default: false
-const DEV_MODE = true;
+const DEV_MODE = false;
 
 // Define the stimulus size in pixels
 // Default: 250
@@ -26,7 +26,9 @@ export const STIMULUS_SIZE = 250;
 // Default: 10
 export const BACKGROUND_ANIMATION_FPS = 10;
 
-// Define number of noise frames to generate
+// Define number of noise frames to generate (bigger numbers will cause longer
+// loading times before the experiment can start, but offer a more 'random'
+// noise)
 // Default: 30
 export const BACKGROUND_ANIMATION_FRAME_NUMBER = DEV_MODE ? 5 : 30;
 
@@ -82,7 +84,7 @@ export const PRACTICE_DETECTION_REPETITIONS = 2;
 
 // Controls how many noise animations are shown per grating tilt.
 // Default: 10
-export const PRACTICE_IMAGINATION_TRIALS_PER_TILT = 10;
+export const PRACTICE_IMAGINATION_TRIALS_PER_TILT = DEV_MODE ? 2 : 10;
 
 /**
  *

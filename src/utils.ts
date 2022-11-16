@@ -128,7 +128,7 @@ export const getFixationCross = () => {
     },
     choices: 'NO_KEYS',
     trial_duration: FIXATION_CROSS_DURATION,
-    data: { test_part: 'fixation_cross' },
+    //data: { test_part: 'fixation_cross' },
   };
 };
 
