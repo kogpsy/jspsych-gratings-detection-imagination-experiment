@@ -315,6 +315,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@jspsych/plugin-call-function@npm:^1.1.2":
+  version: 1.1.2
+  resolution: "@jspsych/plugin-call-function@npm:1.1.2"
+  peerDependencies:
+    jspsych: ">=7.1.0"
+  checksum: 4b704f393f0e54b43d111c842240872b3cca6ae4bf8e806b3665ef56e030d226c3888963bdaa52f552062c70774f3d540087866c3cada68d7288c93be0451118
+  languageName: node
+  linkType: hard
+
 "@jspsych/plugin-fullscreen@npm:^1.1.1":
   version: 1.1.1
   resolution: "@jspsych/plugin-fullscreen@npm:1.1.1"
@@ -339,6 +348,24 @@ __metadata:
   peerDependencies:
     jspsych: ">=7.1.0"
   checksum: a5b45555328d03cdfefd0038cbf40bd0ba39a3e25dd41556342fb20c240d0252f4cfb4c53790d9be3aadc31913d16ec904a94c2e553107007737cdf09f7bc232
+  languageName: node
+  linkType: hard
+
+"@jspsych/plugin-survey-html-form@npm:^1.0.2":
+  version: 1.0.2
+  resolution: "@jspsych/plugin-survey-html-form@npm:1.0.2"
+  peerDependencies:
+    jspsych: ">=7.1.0"
+  checksum: 868426fd5393c1c30fa2e9a75340848f9b031b4765f45cc8df1e6483e2f3a091335232574b12a80dd3b37d0d10b44b91fddf39e854e6289ac71dace65fe9e22f
+  languageName: node
+  linkType: hard
+
+"@kogpsy/jspsych-gabor-stimulus-plugin@npm:^0.9.4":
+  version: 0.9.4
+  resolution: "@kogpsy/jspsych-gabor-stimulus-plugin@npm:0.9.4"
+  peerDependencies:
+    jspsych: ^7.0.0
+  checksum: 605511eb334ace7c5bfd892216f664e9c96162a7ebb04ff13b124df7c74e8c66595276a2576b183f292f1efd17c881957659c11dc1a799a0d20a510d8bae248c
   languageName: node
   linkType: hard
 
@@ -3450,9 +3477,12 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "jspsych-experiment-template@workspace:."
   dependencies:
+    "@jspsych/plugin-call-function": ^1.1.2
     "@jspsych/plugin-fullscreen": ^1.1.1
     "@jspsych/plugin-html-keyboard-response": ^1.1.1
     "@jspsych/plugin-preload": ^1.1.1
+    "@jspsych/plugin-survey-html-form": ^1.0.2
+    "@kogpsy/jspsych-gabor-stimulus-plugin": ^0.9.4
     jspsych: ^7.3.0
     jspsych-builder: ^4.3.1
     prettier: 2.7.1

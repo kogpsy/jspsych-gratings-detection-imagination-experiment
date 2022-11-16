@@ -1,5 +1,59 @@
 @import '~jspsych/css/jspsych.css';
 
+// Make fixation cross big
+.fixation_cross {
+  font-size: 60px;
+}
+
+.vertical_spacer {
+  height: 15px;
+}
+
+.jspsych-content {
+  text-align: left;
+  max-width: 800px;
+}
+
+// Set the experiment background color
 .jspsych-display-element {
-  background-color: #ffffff;
+  background-color: rgb(128, 128, 128);
+  color: white;
+  font-family: 'Quicksand', sans-serif;
+}
+
+h1 {
+  font-size: 22px;
+}
+
+p {
+  font-size: 18px;
+}
+
+.text-input {
+  border: 1px solid rgb(170, 170, 170);
+  background-color: rgb(128, 128, 128);
+  padding: 7px;
+  border-radius: 4px;
+  color: white;
+
+  &:focus {
+    outline: none;
+    border: 1px solid white;
+  }
+}
+
+.checkbox-label {
+  margin-left: 30px;
+}
+
+.checkbox-input {
+  margin-left: 0;
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+  font-size: 100%;
 }

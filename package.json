@@ -9,9 +9,12 @@
     "build": "jspsych build"
   },
   "dependencies": {
+    "@jspsych/plugin-call-function": "^1.1.2",
     "@jspsych/plugin-fullscreen": "^1.1.1",
     "@jspsych/plugin-html-keyboard-response": "^1.1.1",
     "@jspsych/plugin-preload": "^1.1.1",
+    "@jspsych/plugin-survey-html-form": "^1.0.2",
+    "@kogpsy/jspsych-gabor-stimulus-plugin": "^0.9.4",
     "jspsych": "^7.3.0"
   },
   "devDependencies": {
