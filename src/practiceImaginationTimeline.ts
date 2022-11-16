@@ -106,10 +106,13 @@ export const getPracticeImaginationTimeline = (
       frames: backgroundNoiseFrames,
       fps: BACKGROUND_ANIMATION_FPS,
     },
-    fixationCross: {},
-    choices: [],
+    fixation_cross: {
+      size: 20,
+      weight: 4,
+      color: 'white',
+    },
     timing: {
-      trialDuration: 2000,
+      trial_duration: 2000,
     },
   };
 
@@ -117,12 +120,13 @@ export const getPracticeImaginationTimeline = (
   const noiseAnimation = {
     type: GaborStimulusPlugin,
     config: gaborConfig,
+    choices: [],
   };
 
   // Define the response screen where participants can rate their imagination
   const responsePrompt = {
     type: HtmlKeyboardResponsePlugin,
-    choices: ['0', '1', '2', '3', '4', '5'],
+    choices: ['1', '2', '3', '4', '5'],
     stimulus: '<p> Wie lebhaft war Ihre Vorstellung? </p>',
     prompt: 'Überhaupt nicht lebendig [1] - So lebhaft, als wäre sie real [5]',
     data: { test_part: 'practice_imagination' },

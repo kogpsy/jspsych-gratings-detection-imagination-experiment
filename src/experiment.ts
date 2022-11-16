@@ -52,13 +52,12 @@ import PreloadPlugin from '@jspsych/plugin-preload';
 import { generateNoiseFrames } from '@kogpsy/jspsych-gabor-stimulus-plugin';
 import { getFixationCross, getRandomResponseMapping } from './utils';
 import HtmlKeyboardResponsePlugin from '@jspsych/plugin-html-keyboard-response';
-import { STIMULUS_SIZE } from './constants';
+import { BACKGROUND_ANIMATION_FRAME_NUMBER, STIMULUS_SIZE } from './constants';
 import { getPraciceDetectionTimeline } from './practiceDetectionTimeline';
-import { getStaircaseDetectionTimeline } from './staircaseDetectionTimeline';
-import { ParticipantVisibilityThreshold } from './ParticipantVisibilityThreshold';
 import { getPracticeImaginationTimeline } from './practiceImaginationTimeline';
 import { getMainExperimentTimeline } from './mainExperimentTimeline';
 import SurveyHtmlFormPlugin from '@jspsych/plugin-survey-html-form';
+import { generateVviqTimeline } from '@kogpsy/jspsych-vviq';
 
 /**
  * This method will be executed by jsPsych Builder and is expected to run the
@@ -90,12 +89,6 @@ export async function run({ assetPaths, input = {}, environment }) {
   // Instantiate fixation cross trial
   const fixationCrossTrial = getFixationCross();
 
-  // Instantiate object which holds participant visibility levels with defaults
-  const participantVisibilityThreshold = new ParticipantVisibilityThreshold(
-    undefined,
-    undefined
-  );
-
   // Generate response mapping
   const responseMapping = getRandomResponseMapping();
 
@@ -103,7 +96,7 @@ export async function run({ assetPaths, input = {}, environment }) {
   const backgroundNoiseFrames = generateNoiseFrames(
     STIMULUS_SIZE,
     STIMULUS_SIZE,
-    30
+    BACKGROUND_ANIMATION_FRAME_NUMBER
   );
 
   // Preload assets
@@ -113,7 +106,7 @@ export async function run({ assetPaths, input = {}, environment }) {
   });
 
   // First trial presenting participant id and informing about rights
-  timeline.push({
+  /* timeline.push({
     type: SurveyHtmlFormPlugin,
     html: `<h3>Willkommen</h3>
     <p>
@@ -159,10 +152,10 @@ export async function run({ assetPaths, input = {}, environment }) {
     <div class="vertical_spacer"></div>
     `,
     button_label: 'Weiter',
-  });
+  }); */
 
   // First trial capturing demographics
-  timeline.push({
+  /* timeline.push({
     type: SurveyHtmlFormPlugin,
     html: `<p>
     Bevor wir mit dem eigentlichen Experiment starten, haben wir noch ein paar
@@ -216,57 +209,58 @@ export async function run({ assetPaths, input = {}, environment }) {
     on_finish: (data: any) => {
       jsPsych.data.addProperties(data.response);
     },
-  });
+  }); */
 
-  // Push the main explanation of the experiment to the timeline
-  timeline.push({
+  // Add note on VVIQ and VVIQ itself
+  /* timeline.push({
     type: HtmlKeyboardResponsePlugin,
-    stimulus: `
-        <p>
-          Während diesem Experiment werden Sie nach <strong>verrauschten
-            Gittermustern</strong> suchen (siehe unten).
-        </p>
-        <p>
-          <strong>Gittermuster</strong> bestehen aus schwarz-weiss gestreiften
-          Linien (links).
-        </p>
-        <p>
-          Das <strong>Rauschen</strong> ist eine Sammlung von zufällig
-          angeordneten schwarzen und weissen Punkten (mitte).
-        </p>
-        <p>
-          Ihre Aufgabe besteht darin, bei jedem Durchgang anzugeben, ob Sie ein
-          Gittermuster gesehen haben oder nicht (rechts).
-        </p>
-        <div class="vertical_spacer"></div>
-        <div class="vertical_spacer"></div>
-        <img src='media/images/example-stimulus.jpg' width=700></img>
-        <div class="vertical_spacer"></div>
-        <p>Drücken Sie die [Leertaste], um fortzufahren.</p>
-      `,
+    stimulus: `<p>
+  Zunächst werden Ihnen einige Fragen zu Ihrer Vorstellungskraft gestellt. Es
+  geht darum, dass Sie ein Gefühl dafür entwickeln, was Vorstellungskraft ist.
+</p>
+<p>Drücken Sie die [Leertaste], um fortzufahren.</p>
+`,
     choices: [' '],
   });
+  timeline.push(generateVviqTimeline('german')); */
+
+  // Push the main explanation of the experiment to the timeline
+  /* timeline.push({
+    type: HtmlKeyboardResponsePlugin,
+    stimulus: `<p>
+  Wir werden jetzt zum eigentlichen Teil übergehen. Sie werden im folgenden nach
+  <strong>verrauschten Gittermustern</strong> suchen (siehe unten).
+</p>
+<p>
+  <strong>Gittermuster</strong> bestehen aus schwarz-weiss gestreiften Linien
+  (links).
+</p>
+<p>
+  Das <strong>Rauschen</strong> ist eine Sammlung von zufällig angeordneten
+  schwarzen und weissen Punkten (mitte).
+</p>
+<p>
+  Ihre Aufgabe besteht darin, bei jedem Durchgang anzugeben, ob Sie ein
+  Gittermuster gesehen haben oder nicht (rechts).
+</p>
+<div class="vertical_spacer"></div>
+<div class="vertical_spacer"></div>
+<img src="media/images/example-stimulus.jpg" width="700" />
+<div class="vertical_spacer"></div>
+<p>Drücken Sie die [Leertaste], um fortzufahren.</p>
+`,
+    choices: [' '],
+  }); */
 
   // Add practice trials
-  timeline.push(
+  /* timeline.push(
     getPraciceDetectionTimeline(
       jsPsych,
       responseMapping,
       backgroundNoiseFrames,
       fixationCrossTrial
     )
-  );
-
-  // Add staircase sub-timeline
-  timeline.push(
-    getStaircaseDetectionTimeline(
-      jsPsych,
-      responseMapping,
-      backgroundNoiseFrames,
-      fixationCrossTrial,
-      participantVisibilityThreshold
-    )
-  );
+  ); */
 
   // Add imagination practice sub-timeline
   timeline.push(
@@ -283,8 +277,7 @@ export async function run({ assetPaths, input = {}, environment }) {
       jsPsych,
       responseMapping,
       fixationCrossTrial,
-      backgroundNoiseFrames,
-      participantVisibilityThreshold
+      backgroundNoiseFrames
     )
   );
 

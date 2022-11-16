@@ -51,7 +51,7 @@ export const getPraciceDetectionTimeline = (
   const practiceInstruction = {
     type: HtmlKeyboardResponsePlugin,
     stimulus: `
-      <p> Wir starten nun mit einigen Übungsdurchgängen. </p>
+      <p> Wir starten mit einigen Übungsdurchgängen. </p>
       <p>
         Es erscheinen nach links und rechts geneigte Gittermuster im Rauschen.
         Wenn Sie im Rauschen ein Gittermuster sehen, drücken Sie die

@@ -13,6 +13,11 @@
  *
  */
 
+// Define whether to build for development or production (influences block size,
+// number of generated noise frames, ...)
+// Default: false
+const DEV_MODE = true;
+
 // Define the stimulus size in pixels
 // Default: 250
 export const STIMULUS_SIZE = 250;
@@ -20,6 +25,10 @@ export const STIMULUS_SIZE = 250;
 // Define FPS of the background animation
 // Default: 10
 export const BACKGROUND_ANIMATION_FPS = 10;
+
+// Define number of noise frames to generate
+// Default: 30
+export const BACKGROUND_ANIMATION_FRAME_NUMBER = DEV_MODE ? 5 : 30;
 
 // Define how long the fixation cross should be displayed (in milliseconds)
 // Default: 200
@@ -45,37 +54,6 @@ export const GRATING_VISIBILITY_LEVEL_MAX = 1;
 // single procedure contains 3 grating animations.
 // Default: 2
 export const PRACTICE_DETECTION_REPETITIONS = 2;
-
-/**
- *
- * Settings regarding the staircase detection calibration task
- *
- */
-
-// The desired accuracy to staircase to. For each participant we want to figure
-// out the grating visibility level at which they detect 70% correctly.
-// Default: 70
-export const STAIRCASE_ACCURACY_TARGET = 70;
-
-// If after a cycle the accuracy is higher than this value,  we increase the
-// difficulty.
-// Default: 75
-export const STAIRCASE_ACCURACY_UPPER_BOUND = 75;
-
-// If after a cycle the accuracy is lower than this value,  we decrease the
-// difficulty.
-// Default: 65
-export const STAIRCASE_ACCURACY_LOWER_BOUND = 65;
-
-// Controls how many grating animations are shown per accuracy estimation cycle.
-// This must be an even number, so that in exactly 50% of the trials a grating
-// vs. a noise animation can be shown.
-// Default: 10
-export const STAIRCASE_TRIALS_PER_CYCLE = 10;
-
-// Controls how many accuracy estimation cycles are carried out.
-// Default: 12
-export const STAIRCASE_CYCLES = 12;
 
 /**
  *
