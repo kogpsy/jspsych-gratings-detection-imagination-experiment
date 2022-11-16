@@ -14,7 +14,7 @@ import GaborStimulusPlugin, {
 import { JsPsych } from 'jspsych';
 
 import {
-  GRATING_VISIBILITY_LEVEL_INIT,
+  GRATING_VISIBILITY_LEVEL_PRACTICE,
   PRACTICE_DETECTION_REPETITIONS,
   STIMULUS_SIZE,
 } from './constants';
@@ -45,7 +45,7 @@ export const getPraciceDetectionTimeline = (
   let timeline: any[] = [];
 
   // Obtain a copy of initial grating visibility
-  let gratingVisibility = GRATING_VISIBILITY_LEVEL_INIT;
+  let gratingVisibility = GRATING_VISIBILITY_LEVEL_PRACTICE;
 
   // Define the instruction trial
   const practiceInstruction = {

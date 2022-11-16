@@ -253,23 +253,23 @@ export async function run({ assetPaths, input = {}, environment }) {
   }); */
 
   // Add practice trials
-  /* timeline.push(
+  timeline.push(
     getPraciceDetectionTimeline(
       jsPsych,
       responseMapping,
       backgroundNoiseFrames,
       fixationCrossTrial
     )
-  ); */
+  );
 
   // Add imagination practice sub-timeline
-  timeline.push(
+  /* timeline.push(
     getPracticeImaginationTimeline(
       jsPsych,
       fixationCrossTrial,
       backgroundNoiseFrames
     )
-  );
+  ); */
 
   // Add main experiment sub-timeline
   timeline.push(

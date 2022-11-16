@@ -12,13 +12,13 @@ import HtmlKeyboardResponsePlugin from '@jspsych/plugin-html-keyboard-response';
 import CallFunctionPlugin from '@jspsych/plugin-call-function';
 // Import constants
 import {
+  GRATING_VISIBILITY_LEVELS_MAIN,
   MAIN_EXPERIMENT_CONDITION_REPETITIONS,
   MAIN_EXPERIMENT_TRIALS_PER_CONDITION,
   STIMULUS_SIZE,
 } from './constants';
 import { JsPsych } from 'jspsych';
 import { getGaborPluginConfig, ResponseMapping } from './utils';
-import { ParticipantVisibilityThreshold } from './ParticipantVisibilityThreshold';
 import GaborStimulusPlugin from '@kogpsy/jspsych-gabor-stimulus-plugin';
 import { DataCollection } from 'jspsych/dist/modules/data/DataCollection';
 
@@ -38,8 +38,7 @@ export const getMainExperimentTimeline = (
   jsPsychInstance: JsPsych,
   responseMapping: ResponseMapping,
   fixationCrossTrial: any,
-  backgroundNoiseFrames: string[],
-  participantVisibilityThreshold: ParticipantVisibilityThreshold
+  backgroundNoiseFrames: string[]
 ) => {
   // Declare and initiate a timeline array
   let timeline: any[] = [];
@@ -56,7 +55,7 @@ export const getMainExperimentTimeline = (
       </p>
       <p>
         Es wird insgesamt ${6 * MAIN_EXPERIMENT_CONDITION_REPETITIONS} kurze
-        Blöcke geben. Während jedes Blocks wird bei 75% der Durchgänge ein
+        Blöcke geben. Während jedes Blocks wird bei 50% der Durchgänge ein
         Gittermuster einer Orientierung angezeigt werden. Bei einigen Blöcken
         werden Sie gebeten, sich entweder ein nach links oder ein nach rechts
         geneigtes Gittermuster, oder gar nichts vorzustellen. Bitte stellen Sie
@@ -65,7 +64,7 @@ export const getMainExperimentTimeline = (
       </p>
       <p>
         Ihre Aufgabe ist es, anzugeben, ob ein Gittermuster vorhanden war oder
-        nicht.
+        nicht. Die Gittermuster werden hier zum Teil sehr schwer zu erkennen sein.
       </p>
       <p>
         Wenn Sie möchten, können Sie zu Beginn eines neuen Blocks jederzeit eine
@@ -131,66 +130,37 @@ export const getMainExperimentTimeline = (
   const stimulusTrial = {
     type: GaborStimulusPlugin,
     config: () => {
-      // First, the required timeline variables are grabbed, and function level
-      // variables are declared.
-      let stimulusOpacity = 1;
-      const isNoiseTrial = jsPsychInstance.timelineVariable('isNoiseTrial');
-      // If a noise only animation was requested, return appropriate plugin
-      // config
-      if (isNoiseTrial) {
-        return getGaborPluginConfig({
-          stimulusSize: STIMULUS_SIZE,
-          backgroundNoiseFrames: backgroundNoiseFrames,
-          choices: responseMapping.responses,
-          opacity: 0,
-          rotation: 0,
-        });
-      } else {
-        // If a grating animation was requested, figure out which one
-        const gratingTilt = jsPsychInstance
-          .timelineVariable('condition')
-          .split('_')[1];
-        // A left tilted grating animation was requested
-        if (gratingTilt === 'left') {
-          // Get the detection threshold of the current participant
-          stimulusOpacity =
-            participantVisibilityThreshold.getThresholdLeftTilt();
-          // Return appropriate config
-          return getGaborPluginConfig({
-            stimulusSize: STIMULUS_SIZE,
-            backgroundNoiseFrames: backgroundNoiseFrames,
-            choices: responseMapping.responses,
-            opacity: stimulusOpacity,
-            rotation: 45,
-          });
-        }
-        // A right tilted grating animation was requested
-        else {
-          // Get the detection threshold of the current participant
-          stimulusOpacity =
-            participantVisibilityThreshold.getThresholdRightTilt();
-          // Return appropriate config
-          return getGaborPluginConfig({
-            stimulusSize: STIMULUS_SIZE,
-            backgroundNoiseFrames: backgroundNoiseFrames,
-            choices: responseMapping.responses,
-            opacity: stimulusOpacity,
-            rotation: 135,
-          });
-        }
-      }
+      // Get the grating visibility of the current trial
+      const visibility = jsPsychInstance.timelineVariable('visibility');
+
+      // Get the grating tilt of the current block
+      const gratingTilt = jsPsychInstance
+        .timelineVariable('condition')
+        .split('_')[1];
+
+      // Return appropriate config
+      return getGaborPluginConfig({
+        stimulusSize: STIMULUS_SIZE,
+        backgroundNoiseFrames: backgroundNoiseFrames,
+        opacity: visibility,
+        rotation: gratingTilt === 'left' ? 45 : 135,
+      });
     },
+    choices: responseMapping.responses,
     on_finish: (data: any) => {
       // Figure out which response would be correct during this specific trial
-      const wasNoiseTrial = jsPsychInstance.timelineVariable('isNoiseTrial');
-      const correctResponse = wasNoiseTrial
-        ? responseMapping.responses[1]
-        : responseMapping.responses[0];
+      const visibility = jsPsychInstance.timelineVariable('visibility');
+      const correctResponse =
+        visibility === 0
+          ? responseMapping.responses[1]
+          : responseMapping.responses[0];
       // Compare correct to actual response and store
       data.correct = jsPsychInstance.pluginAPI.compareKeys(
         data.response,
         correctResponse
       );
+      // Also add visibility
+      data.visibility = visibility;
       // Also add the correct response
       data.correct_response = correctResponse;
       // Add a test_part label to the data object to be able to identify trials
@@ -208,19 +178,14 @@ export const getMainExperimentTimeline = (
   // The defined animations and their response screen are looped in this object
   const blockLoop = {
     timeline: [fixationCrossTrial, stimulusTrial],
-    timeline_variables: [
-      {
-        isNoiseTrial: true,
-      },
-      {
-        isNoiseTrial: false,
-      },
-    ],
+    timeline_variables: GRATING_VISIBILITY_LEVELS_MAIN,
     sample: {
       type: 'fixed-repetitions',
-      // We divide by two beacuse per repetition two trials are carried out
-      // (one for each set of timeline variables)
-      size: MAIN_EXPERIMENT_TRIALS_PER_CONDITION / 2,
+      // We divide by the length of the visibility array beacuse per repetition
+      // each item of the array corresponds to one single trial.
+      size:
+        MAIN_EXPERIMENT_TRIALS_PER_CONDITION /
+        GRATING_VISIBILITY_LEVELS_MAIN.length,
     },
   };
 

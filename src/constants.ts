@@ -38,11 +38,30 @@ export const FIXATION_CROSS_DURATION = 200;
 // Dijkstra uses 46 on her scale which is equivalent to 0.92 on our scale, but
 // it seems that this is very easy. So we've lowered the default to 0.8.
 // Default: 0.92
-export const GRATING_VISIBILITY_LEVEL_INIT = 0.8;
+export const GRATING_VISIBILITY_LEVEL_PRACTICE = 0.8;
 
-// Define the maximum level of the grating visibility
-// Default: 1
-export const GRATING_VISIBILITY_LEVEL_MAX = 1;
+// Define the different levels of grating visibility for the main part of the
+// experiment. Note that there should be 7 different levels, in order for the
+// block size to remain the same as in the original experiment. TypeScript
+// enforces this (at least at editor level).
+// Default: [ 0, 0.037, 0.048, 0.053, 0.061, 0.073, 0.14 ]
+export const GRATING_VISIBILITY_LEVELS_MAIN: [
+  { visibility: number },
+  { visibility: number },
+  { visibility: number },
+  { visibility: number },
+  { visibility: number },
+  { visibility: number },
+  { visibility: number }
+] = [
+  { visibility: 0 },
+  { visibility: 0.037 },
+  { visibility: 0.048 },
+  { visibility: 0.053 },
+  { visibility: 0.061 },
+  { visibility: 0.073 },
+  { visibility: 0.14 },
+];
 
 /**
  *
@@ -77,10 +96,10 @@ export const PRACTICE_IMAGINATION_TRIALS_PER_TILT = 10;
 // imagination of right tilted gratings, and the same for right tilted
 // gratings).
 // Default: 2
-export const MAIN_EXPERIMENT_CONDITION_REPETITIONS = 2;
+export const MAIN_EXPERIMENT_CONDITION_REPETITIONS = DEV_MODE ? 1 : 2;
 
 // Controls how many animations are shown in each of the above mentioned
-// conditions. This must be an even number, so that in exactly 50% of the trials
-// a grating vs. a noise animation can be shown.
-// Default: 24 (Dijkstra used this value, here it is increased)
-export const MAIN_EXPERIMENT_TRIALS_PER_CONDITION = 50;
+// conditions. This must be dividible by the number of different visibility
+// levels specified under GRATING_VISIBILITY_LEVELS_MAIN (usually 7).
+// Default: 42
+export const MAIN_EXPERIMENT_TRIALS_PER_CONDITION = DEV_MODE ? 14 : 42;

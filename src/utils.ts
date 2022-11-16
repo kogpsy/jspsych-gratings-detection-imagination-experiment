@@ -15,14 +15,12 @@ import { JsPsych } from 'jspsych';
 import {
   BACKGROUND_ANIMATION_FPS,
   FIXATION_CROSS_DURATION,
-  GRATING_VISIBILITY_LEVEL_MAX,
   STIMULUS_SIZE,
 } from './constants';
 
 type Parameters = {
   stimulusSize: number;
   backgroundNoiseFrames: string[];
-  choices: string[];
   opacity: number;
   rotation: number;
 };
