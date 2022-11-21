@@ -60,6 +60,18 @@ import SurveyHtmlFormPlugin from '@jspsych/plugin-survey-html-form';
 import FullscreenPlugin from '@jspsych/plugin-fullscreen';
 import { generateVviqTimeline } from '@kogpsy/jspsych-vviq';
 
+// Hide mouse cursor if idle for 1s
+let hideMouseTimeout: NodeJS.Timeout;
+const hideCursor = () => {
+  document.body.style.cursor = 'none';
+};
+const handleMouseMove = () => {
+  document.body.style.cursor = '';
+  clearTimeout(hideMouseTimeout);
+  hideMouseTimeout = setTimeout(hideCursor, 1000);
+};
+document.addEventListener('mousemove', handleMouseMove);
+
 /**
  * This method will be executed by jsPsych Builder and is expected to run the
  * jsPsych experiment
