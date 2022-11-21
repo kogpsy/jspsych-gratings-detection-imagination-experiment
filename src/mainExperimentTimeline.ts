@@ -55,12 +55,8 @@ export const getMainExperimentTimeline = (
       </p>
       <p>
         Es wird insgesamt ${6 * MAIN_EXPERIMENT_CONDITION_REPETITIONS} kurze
-        Blöcke geben. Während jedes Blocks wird bei 50% der Durchgänge ein
-        Gittermuster einer Orientierung angezeigt werden. Bei einigen Blöcken
-        werden Sie gebeten, sich entweder ein nach links oder ein nach rechts
-        geneigtes Gittermuster, oder gar nichts vorzustellen. Bitte stellen Sie
-        sich das Gitter so lebhaft wie möglich vor, so als ob es tatsächlich auf
-        dem Bildschirm zu sehen wäre.
+        Blöcke geben. Während jedes Blocks werden entweder nachs links oder nach rechts geneigte
+        Gittermuster angezeigt werden. Zudem werden Sie gebeten, sich gleichzeitig entweder ein nach links oder ein nach rechts geneigtes Gittermuster, oder gar nichts vorzustellen. Bitte stellen Sie sich das Gitter so lebhaft wie möglich vor, so als ob es tatsächlich auf dem Bildschirm zu sehen wäre.
       </p>
       <p>
         Ihre Aufgabe ist es, anzugeben, ob ein Gittermuster vorhanden war oder

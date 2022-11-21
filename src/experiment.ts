@@ -52,7 +52,7 @@ import PreloadPlugin from '@jspsych/plugin-preload';
 import { generateNoiseFrames } from '@kogpsy/jspsych-gabor-stimulus-plugin';
 import { getFixationCross, getRandomResponseMapping } from './utils';
 import HtmlKeyboardResponsePlugin from '@jspsych/plugin-html-keyboard-response';
-import { BACKGROUND_ANIMATION_FRAME_NUMBER, STIMULUS_SIZE } from './constants';
+import { BACKGROUND_ANIMATION_FRAME_NUMBER, STIMULUS_SIZE, DEV_MODE } from './constants';
 import { getPracticeDetectionTimeline } from './practiceDetectionTimeline';
 import { getPracticeImaginationTimeline } from './practiceImaginationTimeline';
 import { getMainExperimentTimeline } from './mainExperimentTimeline';
@@ -118,7 +118,7 @@ export async function run({ assetPaths, input = {}, environment }) {
     images: [...backgroundNoiseFrames, [...assetPaths.images]],
   });
 
-  timeline.push({
+  DEV_MODE || timeline.push({
     type: FullscreenPlugin,
     message:
       '<p>Das Experiment wechselt in den Vollbildmodus, wenn Sie den Button drücken.</p>',
@@ -175,7 +175,7 @@ export async function run({ assetPaths, input = {}, environment }) {
   });
 
   // First trial capturing demographics
-  timeline.push({
+  DEV_MODE || timeline.push({
     type: SurveyHtmlFormPlugin,
     html: `<p>
     Bevor wir mit dem eigentlichen Experiment starten, haben wir noch ein paar
@@ -229,7 +229,7 @@ export async function run({ assetPaths, input = {}, environment }) {
   });
 
   // Add note on VVIQ and VVIQ itself
-  timeline.push({
+  DEV_MODE || timeline.push({
     type: HtmlKeyboardResponsePlugin,
     stimulus: `<p>
   Zunächst werden Ihnen einige Fragen zu Ihrer Vorstellungskraft gestellt. Es
@@ -239,7 +239,8 @@ export async function run({ assetPaths, input = {}, environment }) {
 `,
     choices: [' '],
   });
-  timeline.push(generateVviqTimeline('german', { test_part: 'vviq' }));
+
+  DEV_MODE || timeline.push(generateVviqTimeline('german', { test_part: 'vviq' }));
 
   // Push the main explanation of the experiment to the timeline
   timeline.push({
@@ -280,7 +281,7 @@ export async function run({ assetPaths, input = {}, environment }) {
   );
 
   // Add imagination practice sub-timeline
-  timeline.push(
+  DEV_MODE || timeline.push(
     getPracticeImaginationTimeline(
       jsPsych,
       fixationCrossTrial,

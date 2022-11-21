@@ -16,7 +16,7 @@
 // Define whether to build for development or production (influences block size,
 // number of generated noise frames, ...)
 // Default: false
-const DEV_MODE = false;
+export const DEV_MODE = true;
 
 // Define the stimulus size in pixels
 // Default: 250
@@ -34,7 +34,7 @@ export const BACKGROUND_ANIMATION_FRAME_NUMBER = DEV_MODE ? 5 : 30;
 
 // Define how long the fixation cross should be displayed (in milliseconds)
 // Default: 200
-export const FIXATION_CROSS_DURATION = 200;
+export const FIXATION_CROSS_DURATION = 500;
 
 // Define the start level of the visibility of the gratings (from 0 to 1)
 // Dijkstra uses 46 on her scale which is equivalent to 0.92 on our scale, but
@@ -101,7 +101,7 @@ export const PRACTICE_IMAGINATION_TRIALS_PER_TILT = DEV_MODE ? 2 : 10;
 export const MAIN_EXPERIMENT_CONDITION_REPETITIONS = DEV_MODE ? 1 : 2;
 
 // Controls how many animations are shown in each of the above mentioned
-// conditions. This must be dividible by the number of different visibility
+// conditions. This must be divisible by the number of different visibility
 // levels specified under GRATING_VISIBILITY_LEVELS_MAIN (usually 7).
 // Default: 42
 export const MAIN_EXPERIMENT_TRIALS_PER_CONDITION = DEV_MODE ? 14 : 42;
