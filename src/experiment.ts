@@ -53,7 +53,7 @@ import { generateNoiseFrames } from '@kogpsy/jspsych-gabor-stimulus-plugin';
 import { getFixationCross, getRandomResponseMapping } from './utils';
 import HtmlKeyboardResponsePlugin from '@jspsych/plugin-html-keyboard-response';
 import { BACKGROUND_ANIMATION_FRAME_NUMBER, STIMULUS_SIZE } from './constants';
-import { getPraciceDetectionTimeline } from './practiceDetectionTimeline';
+import { getPracticeDetectionTimeline } from './practiceDetectionTimeline';
 import { getPracticeImaginationTimeline } from './practiceImaginationTimeline';
 import { getMainExperimentTimeline } from './mainExperimentTimeline';
 import SurveyHtmlFormPlugin from '@jspsych/plugin-survey-html-form';
