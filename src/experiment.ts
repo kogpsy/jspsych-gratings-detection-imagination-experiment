@@ -271,7 +271,7 @@ export async function run({ assetPaths, input = {}, environment }) {
 
   // Add practice trials
   timeline.push(
-    getPraciceDetectionTimeline(
+    getPracticeDetectionTimeline(
       jsPsych,
       responseMapping,
       backgroundNoiseFrames,

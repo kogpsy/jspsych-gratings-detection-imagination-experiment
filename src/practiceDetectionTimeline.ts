@@ -35,7 +35,7 @@ import {
  * cross
  * @returns A jsPsych nested timeline
  */
-export const getPraciceDetectionTimeline = (
+export const getPracticeDetectionTimeline = (
   jsPsychInstance: JsPsych,
   responseMapping: ResponseMapping,
   backgroundNoiseFrames: string[],
