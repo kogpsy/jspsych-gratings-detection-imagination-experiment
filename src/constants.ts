@@ -16,7 +16,7 @@
 // Define whether to build for development or production (influences block size,
 // number of generated noise frames, ...)
 // Default: false
-export const DEV_MODE = true;
+export const DEV_MODE = false;
 
 // Define the stimulus size in pixels
 // Default: 250

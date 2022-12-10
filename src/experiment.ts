@@ -308,8 +308,7 @@ export async function run({ assetPaths, input = {}, environment }) {
 <p>
   <fieldset>
     <legend>Haben Sie sich die Gittermuster in den Blöcken wirklich vorgestellt,
-      als wir Sie darum baten? (Die Antwort auf diese Frage wird Ihre
-      Belonung nicht beeinflussen.)</legend>
+      als wir Sie darum baten? (Bitte antworten Sie ehrlich; Ihre Antwort hat keinen Einfluss darauf, ob Ihre Daten verwendet werden oder nicht.)</legend>
     <div>
       <input type="radio" id="option_imagination_yes" name="did_participant_really_imagine" value="yes" required>
       <label for="option_imagination_yes">Ja</label>
