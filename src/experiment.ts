@@ -1,7 +1,7 @@
 /**
  * @title IMAPC Replication
  * @description Code for a refined replication of the third experiment of the IMADET study by Dijkstra et al. (2021).
- * @version 0.9.2
+ * @version 1.0.0
  *
  * The following lines specify which media directories will be packaged and
  * preloaded by jsPsych. Modify them to arbitrary paths (or comma-separated
