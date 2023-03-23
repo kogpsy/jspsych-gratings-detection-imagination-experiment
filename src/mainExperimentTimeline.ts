@@ -144,8 +144,12 @@ export const getMainExperimentTimeline = (
     },
     choices: responseMapping.responses,
     on_finish: (data: any) => {
-      // Figure out which response would be correct during this specific trial
+      
+      const condition = jsPsychInstance.timelineVariable('condition');
+      data.condition = condition; 
+
       const visibility = jsPsychInstance.timelineVariable('visibility');
+      // Figure out which response would be correct during this specific trial
       const correctResponse =
         visibility === 0
           ? responseMapping.responses[1]
