@@ -148,6 +148,11 @@ export const getMainExperimentTimeline = (
       const condition = jsPsychInstance.timelineVariable('condition');
       data.condition = condition; 
 
+      const blockInstructionTilt = jsPsychInstance.timelineVariable('blockInstructionTilt');
+      data.blockInstructionTilt = blockInstructionTilt; 
+      const blockInstructionImagination = jsPsychInstance.timelineVariable('blockInstructionImagination');
+      data.blockInstructionImagination = blockInstructionImagination; 
+
       const visibility = jsPsychInstance.timelineVariable('visibility');
       // Figure out which response would be correct during this specific trial
       const correctResponse =
