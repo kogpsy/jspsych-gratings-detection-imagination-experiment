@@ -363,6 +363,7 @@ export async function run({ assetPaths, input = {}, environment }) {
       'gender',
       'age',
       'handedness',
+      'condition',
       'response',
       'correct',
       'correct_response',
