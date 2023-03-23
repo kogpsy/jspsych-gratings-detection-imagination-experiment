@@ -10,3 +10,7 @@ node_modules
 
 packaged
 .jspsych-builder
+
+
+# MacOS
+.DS_Store
