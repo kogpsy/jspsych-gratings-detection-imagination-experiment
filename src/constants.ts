@@ -104,4 +104,4 @@ export const MAIN_EXPERIMENT_CONDITION_REPETITIONS = DEV_MODE ? 1 : 2;
 // conditions. This must be divisible by the number of different visibility
 // levels specified under GRATING_VISIBILITY_LEVELS_MAIN (usually 7).
 // Default: 42
-export const MAIN_EXPERIMENT_TRIALS_PER_CONDITION = DEV_MODE ? 14 : 42;
+export const MAIN_EXPERIMENT_TRIALS_PER_CONDITION = DEV_MODE ? 7 : 42;
