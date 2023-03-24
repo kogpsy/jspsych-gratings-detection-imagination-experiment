@@ -364,8 +364,6 @@ export async function run({ assetPaths, input = {}, environment }) {
       'age',
       'handedness',
       'condition',
-      'blockInstructionTilt',
-      'blockInstructionImagination',
       'response',
       'correct',
       'correct_response',
